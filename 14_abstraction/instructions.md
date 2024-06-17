@@ -30,23 +30,6 @@ and a `WeatherApi` class that defines the specific API endpoint and data parsing
 *The hint can either be included or omitted, depending how challenging we wish to make this.
 
 
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-In the refactored code, there is a new protocol class `HttpClient` class that defines the get method for fetching data from an API.
-There's also an implementation  of `HttpClient` defined, `RequestsClient`, which implements the get method using the `requests`
-library.
-
-There's also a new `WeatherApi` class that defines the specific API endpoint and data parsing logic. The `WeatherApi`
-class takes an instance of `HttpClient` and the API key as inputs, allowing it to work with different HTTP clients
-and API providers.
-
-Finally, in the `WeatherApi` class, there's no longer the need to have any knowledge of the specific HTTP client. Calling the `get_complete_forecast` method when needed and the properties to fetch the current 
-temperature, humidity, and wind.
-
-
-
-
-
 
 
 

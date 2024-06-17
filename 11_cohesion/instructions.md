@@ -24,20 +24,5 @@ Hint: While separating the function into smaller ones, try to do it so that it b
 the actual processing functionality later on.
 
 
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-To make this function easier to read and modify, we could break it down into smaller functions that handle each
-processing rule. In this simplified (refactored) code, there's several new functions created to handle each processing
-rule.
-The `process_data function` now calls the `process_row function` for each row, which in turn calls the
-appropriate processing function based on the sensor type. This makes the code easier to read and modify,
-as each processing rule is now encapsulated in its own function. It also makes testing the code much simpler, even if
-we decide to change the processing functionality. 
-
-
-
-
-
-
 
 

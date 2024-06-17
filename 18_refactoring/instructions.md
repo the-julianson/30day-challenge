@@ -12,5 +12,3 @@ Refactor the command line interface code to solve these design problems:
 - There's a lot of duplication
 - Everything is in a single main function
 - Translating the cli to display another language (for example, Dutch instead of English) would be a nightmare
-
-## Solution (this should be sent afterwards with your explanation video (if applicable)

@@ -26,13 +26,3 @@ easier to maintain, and less prone to errors caused by repetition or inconsisten
 
 For this challenge you need to refactor the given code in `dry_violation.py` in some places (you will have to figure
 out which) in order to avoid code repetition.
-
-## Solution
-
-- Identical logic in calculate_total_price() and calculate_discounted_price()
-- Duplicated code in generate_order_confirmation_email() and generate_order_shipping_notification()
-- Lot of similarity between process_online_order() and process_in_store_order()
-
-- Discounted price now uses calculate_total_price() to get the total price, and then applies the discount.
-- Move out some of the same data such as sender email address into a constant. Other than that, there's not that much to improve.
-- Create generic process_order function that checks what type of order it is and then processes accordingly.

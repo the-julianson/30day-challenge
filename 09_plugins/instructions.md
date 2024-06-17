@@ -18,16 +18,3 @@ separate folder to create all the scripts and subdirectories inside as you will 
    You can use the `sys.path.append` method of the `sys` library for that.
 3. We also created a function to convert the module name string to the class name string for using only the module name
    string as input for the `set_payment_strategy` method. This is connected to point 1.
-
-## Solution
-
-- The issue is that payment methods are hardcoded in the file.
-- You can use importlib to dynamically import the payment methods.
-- Create a separate folder plugins that contains the payment methods.
-- Standard definition of a payment method module should contain 2 functions.
-- One function to process the payment and one function to get the name of the payment method.
-- Create plugin manager to load and manage these plugins.
-- Use protocol class to represent a plugin.
-- Add functions to easily load plugins and retrieve them.
-- Adding another payment method is now simply a question of adding another file to the plugins folder.
-- No need to change anything else in the code.

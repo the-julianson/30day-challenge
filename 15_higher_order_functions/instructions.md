@@ -17,20 +17,6 @@ For this output you need to create a higher order function based on the code of 
 not the weather forecast itself but the functions that are able to provide us with it. 
 
 
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-To tackle this challenge we create a new higher order function `weather_service` which returns a dictionary, whose 
-values are the functions that allows us to get the weather forecast. 
-
-Notice, how we don't need to pass the city argument
-in the `weather_service` function since the `get_complete_forecast` is only defined and not called. We only pass it as
-an argument later in the `run_high_order_function.py` when we call it by accessing the dictionary that the 
-`weather_services` has returned.
-
-
-
-
-
 
 
 

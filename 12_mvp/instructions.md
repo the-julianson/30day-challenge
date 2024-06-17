@@ -6,5 +6,3 @@ application you have seen before. You can see the code that implements the GUI i
 ## Challenge
 
 For this challenge you need to refactor the `gui.py` code to use the Model-View-Presenter architecture.
-
-## Solution (this should be sent afterwards with your explanation video (if applicable)

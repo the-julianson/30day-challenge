@@ -16,27 +16,4 @@ Hint: Try using a higher order function to avoid the need to pass the an http_cl
 
 
 
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-As mentioned before, one possible way to simplify the inheritance structure is to make the `WeatherApi` class take 
-in an instance of `HttpClient` as an argument, instead of a specific subclass like 
-`RequestsClient`. This way, the `WeatherApi` class can work with any implementation of the 
-`HttpClient` interface, without being tied to a specific implementation like `RequestsClient`.
-
-To make things even simpler we can create a function that returns an instance of the `RequestsClient`, which is 
-called directly into the `get_complete_forecast` method the `WeatherApi` and not passed as an argument to the 
-`WeatherApi` constructor as before.
-
-Notice that, there is a form of polymorphism implemented in this code. 
-The `WeatherApi` class takes an instance of `HttpClient` in its constructor. However, instead 
-of passing an instance of `HttpClient`, an instance of `RequestsClient` is passed. 
-Since `RequestsClient` is an implementation of `HttpClient` protocol class, it is a valid substitution for `HttpClient`, 
-demonstrating polymorphism. 
-
-
-
-
-
-
-
 

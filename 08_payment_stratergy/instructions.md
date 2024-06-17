@@ -12,9 +12,3 @@ and easy to maintain.
 
 For this challenge you need to add some extra functionality to the shopping cart app to allow for different types of
 payments using the strategy pattern.
-
-## Solution
-
-- Process_payment is a very long function that has too many responsibilities.
-- Also, it shouldn't be part of the shopping cart class as the class becomes too large.
-- Create separate function to handle payment. Use dictionary to store the different payment methods. Like a strategy pattern.

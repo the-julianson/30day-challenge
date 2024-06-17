@@ -12,9 +12,3 @@ difficult to maintain and modify over time.
 
 For this challenge you need to go through the `demeter_law_violation.py` script and try to write the code that would
 have the exact same behavior but without violating the Demeter law.
-
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-- The main function directly needs to know implementation details of the ShoppingCart class, when updating the price or quantity of an item or when removing an item.
-- Move to functions that are part of ShoppingCart.
-- Add convenience methods and properties to the Item class.

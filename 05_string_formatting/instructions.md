@@ -11,11 +11,3 @@ the format() method, or f-strings.
 
 For this challenge you need to modify (all) the strings that are printed so that they look better and are easier to read. You
 can use either the format() method of f-strings, or a combination of both.
-
-## Solution (this should be sent afterwards with your explanation video (if applicable)
-
-- Not really a design challenge, but still requires you to think about how to make use of the built-in tools and avoid violating the KISS principle.
-- As you can see, you can do all of this with f-string formatting.
-- Explain left and right alignment.
-
-- You can also use another package, like tabulate (though haven't found an easy way to print dollar signs with it).
