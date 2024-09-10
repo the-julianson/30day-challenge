@@ -14,6 +14,7 @@ I'm really excited for you to start with the challenges. Good luck!
 
 - [Overview](#overview)
 - [Introduction](#introduction)
+- [Contributions](#contributions)
 - [Challenges](#challenges)
   - [Day 1: KISS](#day-1-kiss)
     - [Resources](#resources)
@@ -58,6 +59,10 @@ I'm really excited for you to start with the challenges. Good luck!
 ## Introduction
 
 Each challenge is based on a code example that you can download at the top. To complete a challenge, read through the challenge text and work on the code to solve the problem. Some challenges might be quite short, others are going to take you a bit more time. You'll also see some challenges work on the same codebase. I've done this on purpose so that on the one hand you will recognize the code sooner so it takes you less time to get into the material, and reusing code also made it easier for me to create more complex challenges.
+
+## Contributions
+
+[erderial](https://github.com/erderial) :star: - [Solution To Keep it Simple](./01_kiss/alternative_solution.py) 
 
 ## Challenges
 
