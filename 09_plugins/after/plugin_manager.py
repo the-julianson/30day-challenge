@@ -7,12 +7,10 @@ import os
 
 class Plugin(Protocol):
     @staticmethod
-    def get_payment_method() -> str:
-        ...
+    def get_payment_method() -> str: ...
 
     @staticmethod
-    def process_payment(total: Decimal) -> None:
-        ...
+    def process_payment(total: Decimal) -> None: ...
 
 
 PLUGINS: dict[str, Plugin] = {}

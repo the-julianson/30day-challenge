@@ -1,5 +1,6 @@
 # This code was originally written by @erderial.
 
+
 def count_fruits(fruits: list[str]) -> dict[str, int]:
     """Create an empty dictionary. Check if the item exists as a key using the *get* method. If not, create key with 0 as a default value, if it does just add 1 to the value."""
     d: dict[str, int] = {}

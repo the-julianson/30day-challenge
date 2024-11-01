@@ -5,11 +5,14 @@ def main() -> None:
     option = "All"  # choose between "All", "Temperature", "Humidity", "CO2"
 
     data = pd.read_csv("sensor_data.csv")
-    assert option in (
-        "All",
-        "Temperature",
-        "Humidity",
-        "CO2",
+    assert (
+        option
+        in (
+            "All",
+            "Temperature",
+            "Humidity",
+            "CO2",
+        )
     ), f'Option not valid, should be ("All", "Temperature", "Humidity", "CO2") {option} given!'
 
     if option in ("Temperature", "Humidity", "CO2"):

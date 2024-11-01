@@ -10,8 +10,7 @@ class CityNotFoundError(Exception):
 
 
 class HttpClient(Protocol):
-    def get(self, url: str) -> Any:
-        ...
+    def get(self, url: str) -> Any: ...
 
 
 class RequestsClient:

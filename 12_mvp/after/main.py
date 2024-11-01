@@ -30,7 +30,9 @@ class Model:
 
 class View:
     def __init__(self) -> None:
-        self.presenter: Presenter  # Will be passed the presenter object after it's created
+        self.presenter: (
+            Presenter  # Will be passed the presenter object after it's created
+        )
         self.master = tk.Tk()
         self.master.title("Data Analysis Tool")
 
