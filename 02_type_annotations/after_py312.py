@@ -1,5 +1,6 @@
 """
 Since Python 3.12 the syntax for generics has been improved. This is a version of the solution using the new syntax.
+Based on a solution provided by Stefan Hilker.
 """
 
 from collections.abc import Callable, Iterable, Sized
