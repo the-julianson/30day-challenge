@@ -1,42 +1,37 @@
-from typing import Callable, Iterable, Sized, TypeVar
+"""
+Since Python 3.12 the syntax for generics has been improved. This is a version of the solution using the new syntax.
+"""
+
+from collections.abc import Callable, Iterable, Sized
 
 
 def filter_odd_numbers(numbers: Iterable[int]) -> list[int]:
     """Filters odd numbers from a sequence of numbers."""
-    result: list[int] = []
-    for num in numbers:
-        if num % 2 == 0:
-            result.append(num)
+    result: list[int] = [num for num in numbers if num % 2 == 0]
     return result
 
 
 def square_numbers(numbers: Iterable[int | float]) -> list[float]:
     """Square numbers in a sequence."""
-    result: list[float] = []
-    for num in numbers:
-        result.append(num**2)
+    result: list[float] = [num**2 for num in numbers]
     return result
 
 
 def count_elements(words: Iterable[Sized]) -> list[int]:
     """Counts the number of elements in an iterable of words."""
-    result: list[int] = []
-    for word in words:
-        result.append(len(word))
+    result: list[int] = [len(word) for word in words]
     return result
 
 
-T = TypeVar("T")
-U = TypeVar("U")
-FilterFunc = Callable[[T], T]
-ProcessFunc = Callable[[T], U]
+type FilterFunc[T] = Callable[[T], T]
+type ProcessFunc[T, V] = Callable[[T], V]
 
 
-def process_data(
+def process_data[T, V](
     data: T,
     filter_func: FilterFunc[T] | None = None,
-    process_func: ProcessFunc[T, U] | None = None,
-) -> T | U:
+    process_func: ProcessFunc[T, V] | None = None,
+) -> T | V:
     """Applies filter_func and process_func on a data sequence."""
     if filter_func:
         data = filter_func(data)
