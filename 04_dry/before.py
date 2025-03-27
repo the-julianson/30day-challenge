@@ -1,7 +1,7 @@
 from decimal import Decimal
 from dataclasses import dataclass
 from enum import StrEnum
-from typing import Iterable
+from typing import Iterable, Protocol, List
 
 
 class OrderType(StrEnum):
@@ -27,53 +27,73 @@ class Email:
     body: str
     subject: str
     recipient: str
-    sender: str
+    sender: str = "sales@webshop.com"  # Default sender
+
+
+@dataclass
+class EmailTemplate:
+    subject: str
+    body_template: str
 
 
 def calculate_total_price(items: Iterable[Item]) -> Decimal:
-    total_price = Decimal(sum(item.price for item in items))
-    return total_price
+    return Decimal(sum(item.price for item in items))
 
 
 def calculate_discounted_price(items: Iterable[Item], discount: Decimal) -> Decimal:
-    total_price = Decimal(sum(item.price for item in items))
-    discounted_price = total_price - (total_price * discount)
-    return discounted_price
+    total_price = calculate_total_price(items)  # Reuse existing function
+    return total_price - (total_price * discount)
 
 
-def generate_order_confirmation_email(order: Order) -> Email:
+def generate_email(template: EmailTemplate, order: Order) -> Email:
     return Email(
-        body=f"Thank you for your order! Your order #{order.id} has been confirmed.",
-        subject="Order Confirmation",
+        body=template.body_template.format(order_id=order.id),
+        subject=template.subject,
         recipient=order.customer_email,
-        sender="sales@webshop.com",
     )
 
 
-def generate_order_shipping_notification(order: Order) -> Email:
-    return Email(
-        body=f"Good news! Your order #{order.id} has been shipped and is on its way.",
-        subject="Order Shipped",
-        recipient=order.customer_email,
-        sender="sales@webshop.com",
-    )
+# Email templates
+ORDER_CONFIRMATION = EmailTemplate(
+    subject="Order Confirmation",
+    body_template="Thank you for your order! Your order #{order_id} has been confirmed."
+)
+
+ORDER_SHIPPED = EmailTemplate(
+    subject="Order Shipped",
+    body_template="Good news! Your order #{order_id} has been shipped and is on its way."
+)
 
 
-def process_online_order(order: Order) -> None:
-    # Logic to process an online order
-    print("Processing online order...")
-    print(generate_order_confirmation_email(order))
-    print("Shipping the order...")
-    print(generate_order_shipping_notification(order))
-    print("Order processed successfully.")
+class OrderProcessor(Protocol):
+    def process(self, order: Order) -> None:
+        """Process the order according to its type"""
+        pass
 
 
-def process_in_store_order(order: Order) -> None:
-    # Logic to process an in-store order
-    print("Processing in-store order...")
-    print(generate_order_confirmation_email(order))
-    print("Order ready for pickup.")
-    print("Order processed successfully.")
+class OnlineOrderProcessor:
+    def process(self, order: Order) -> None:
+        print("Processing online order...")
+        print(generate_email(ORDER_CONFIRMATION, order))
+        print("Shipping the order...")
+        print(generate_email(ORDER_SHIPPED, order))
+        print("Order processed successfully.")
+
+
+class InStoreOrderProcessor:
+    def process(self, order: Order) -> None:
+        print("Processing in-store order...")
+        print(generate_email(ORDER_CONFIRMATION, order))
+        print("Order ready for pickup.")
+        print("Order processed successfully.")
+
+
+def get_order_processor(order_type: OrderType) -> OrderProcessor:
+    processors = {
+        OrderType.ONLINE: OnlineOrderProcessor(),
+        OrderType.IN_STORE: InStoreOrderProcessor(),
+    }
+    return processors[order_type]
 
 
 def main() -> None:
@@ -93,13 +113,16 @@ def main() -> None:
     discounted_price = calculate_discounted_price(items, Decimal("0.1"))
     print("Discounted price:", discounted_price)
 
-    process_online_order(online_order)
+    # Process orders using the appropriate processor
+    online_processor = get_order_processor(online_order.type)
+    online_processor.process(online_order)
 
     in_store_order = Order(
         id=456, type=OrderType.IN_STORE, customer_email="john@gmail.com"
     )
-
-    process_in_store_order(in_store_order)
+    
+    in_store_processor = get_order_processor(in_store_order.type)
+    in_store_processor.process(in_store_order)
 
 
 if __name__ == "__main__":
