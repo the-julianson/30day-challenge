@@ -1,43 +1,51 @@
 from dataclasses import dataclass, field
 from decimal import Decimal
-from typing import Callable
+
+from plugin_manager import load_plugins_from_folder, all_plugins, get_plugin
+
+import pathlib
+
+# Get the directory where this script (main.py) is located.
+HERE = pathlib.Path(__file__).parent
+
+# Define the plugins folder as being in the same directory as the script.
+PLUGINS_FOLDER = HERE / "plugins"
+
+# def process_payment_cc(total: Decimal) -> None:
+#     card_number = input("Please enter your credit card number: ")
+#     expiration_date = input("Please enter your credit card expiration date: ")
+#     ccv = input("Please enter your credit card CCV: ")
+#     card_number_masked = card_number[-4:].rjust(len(card_number), "*")
+#     ccv_masked = len(ccv) * "*"
+#     print(
+#         f"Processing credit card payment of ${total:.2f} with card number {card_number_masked} and expiration date {expiration_date} and CCV {ccv_masked}..."
+#     )
 
 
-def process_payment_cc(total: Decimal) -> None:
-    card_number = input("Please enter your credit card number: ")
-    expiration_date = input("Please enter your credit card expiration date: ")
-    ccv = input("Please enter your credit card CCV: ")
-    card_number_masked = card_number[-4:].rjust(len(card_number), "*")
-    ccv_masked = len(ccv) * "*"
-    print(
-        f"Processing credit card payment of ${total:.2f} with card number {card_number_masked} and expiration date {expiration_date} and CCV {ccv_masked}..."
-    )
+# def process_payment_paypal(total: Decimal) -> None:
+#     username = input("Please enter your PayPal username: ")
+#     password = input("Please enter your PayPal password: ")
+#     password_masked = len(password) * "*"
+#     print(
+#         f"Processing PayPal payment of ${total:.2f} with username {username} and password {password_masked}..."
+#     )
 
 
-def process_payment_paypal(total: Decimal) -> None:
-    username = input("Please enter your PayPal username: ")
-    password = input("Please enter your PayPal password: ")
-    password_masked = len(password) * "*"
-    print(
-        f"Processing PayPal payment of ${total:.2f} with username {username} and password {password_masked}..."
-    )
+# def process_payment_apple_pay(total: Decimal) -> None:
+#     device_id = input("Please enter your Apple Pay device ID: ")
+#     device_id_masked = device_id[-4:].rjust(len(device_id), "*")
+#     print(
+#         f"Processing Apple Pay payment of ${total:.2f} with device ID {device_id_masked}..."
+#     )
 
 
-def process_payment_apple_pay(total: Decimal) -> None:
-    device_id = input("Please enter your Apple Pay device ID: ")
-    device_id_masked = device_id[-4:].rjust(len(device_id), "*")
-    print(
-        f"Processing Apple Pay payment of ${total:.2f} with device ID {device_id_masked}..."
-    )
+# PaymentHandlerFn = Callable[[Decimal], None]
 
-
-PaymentHandlerFn = Callable[[Decimal], None]
-
-PAYMENT_HANDLERS: dict[str, PaymentHandlerFn] = {
-    "cc": process_payment_cc,
-    "paypal": process_payment_paypal,
-    "apple": process_payment_apple_pay,
-}
+# PAYMENT_HANDLERS: dict[str, PaymentHandlerFn] = {
+#     "cc": process_payment_cc,
+#     "paypal": process_payment_paypal,
+#     "apple": process_payment_apple_pay,
+# }
 
 
 @dataclass
@@ -127,21 +135,30 @@ class ShoppingCart:
 
 
 def handle_payment(total: Decimal) -> None:
+
+    _all_plugins = all_plugins()
+    print(all_plugins())
+    print(_all_plugins)
     payment_type = input(
-        "What payment method would you like to use? (cc/paypal/apple) "
+        f"What payment method would you like to use? ({', '.join(_all_plugins)}) "
     )
 
-    if payment_type in PAYMENT_HANDLERS:
+    if payment_type in _all_plugins:
         # Process the payment
-        PAYMENT_HANDLERS[payment_type](total)
+        # Get the plugin
+        payment_handler = get_plugin(payment_type)
+        payment_handler.process_payment(total)
     else:
         print(f"Payment type '{payment_type}' is not valid!")
 
 
 def main() -> None:
     # Create a shopping cart and add some items to it
+
+    # Load the plugins when we run our app
+    load_plugins_from_folder(PLUGINS_FOLDER) 
     cart = ShoppingCart(
-        items=[
+        items=[ 
             Item("Apple", Decimal("1.50"), 10),
             Item("Banana", Decimal("2.00"), 2),
             Item("Pizza", Decimal("11.90"), 5),

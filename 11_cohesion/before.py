@@ -1,6 +1,12 @@
 import pandas as pd
 
 
+def read_data(source_type: str = "csv", source: str):
+    if source_type == "csv":
+        return pd.read_csv(source)
+    
+
+
 def main() -> None:
     option = "All"  # choose between "All", "Temperature", "Humidity", "CO2"
 
